@@ -19,19 +19,19 @@ inputs:
     description: Email for the git commit
     required: true
   github-server:
-    description: 'Github server'
-    default: 'github.com'
+    description: "Github server"
+    default: "github.com"
     required: false
   user-name:
     description: >-
       [Optional] Name for the git commit. Defaults to the destination
       username/organization name
     required: false
-    default: ''
+    default: ""
   destination-repository-username:
-    description: '[Optional] Username/organization for the destination repository'
+    description: "[Optional] Username/organization for the destination repository"
     required: false
-    default: ''
+    default: ""
   target-branch:
     description: >-
       [Optional] set target branch name for the destination repository. Defaults
@@ -45,8 +45,8 @@ inputs:
     default: Update from ORIGIN_COMMIT
     required: false
   target-directory:
-    description: '[Optional] The directory to wipe and replace in the target repository'
-    default: ''
+    description: "[Optional] The directory to wipe and replace in the target repository"
+    default: ""
     required: false
   create-target-branch-if-needed:
     type: boolean
@@ -59,18 +59,19 @@ runs:
   using: docker
   image: Dockerfile
   args:
-    - '${{ inputs.source-before-directory }}'
-    - '${{ inputs.source-directory }}'
-    - '${{ inputs.destination-github-username }}'
-    - '${{ inputs.destination-repository-name }}'
-    - '${{ inputs.github-server }}'
-    - '${{ inputs.user-email }}'
-    - '${{ inputs.user-name }}'
-    - '${{ inputs.destination-repository-username }}'
-    - '${{ inputs.target-branch }}'
-    - '${{ inputs.commit-message }}'
-    - '${{ inputs.target-directory }}'
-    - '${{ inputs.create-target-branch-if-needed }}'
+    - "${{ inputs.source-before-directory }}"
+    - "${{ inputs.source-directory }}"
+    - "${{ inputs.destination-github-username }}"
+    - "${{ inputs.destination-repository-name }}"
+    - "${{ inputs.github-server }}"
+    - "${{ inputs.user-email }}"
+    - "${{ inputs.user-name }}"
+    - "${{ inputs.destination-repository-username }}"
+    - "${{ inputs.target-branch }}"
+    - "${{ inputs.commit-message }}"
+    - "${{ inputs.target-directory }}"
+    - "${{ inputs.create-target-branch-if-needed }}"
+    - "${{ inputs.force-push }}"
 branding:
   icon: git-commit
   color: green

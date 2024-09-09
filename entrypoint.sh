@@ -16,6 +16,7 @@ TARGET_BRANCH="${9}"
 COMMIT_MESSAGE="${10}"
 TARGET_DIRECTORY="${11}"
 CREATE_TARGET_BRANCH_IF_NEEDED="${12}"
+FORCE_PUSH="${13}"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -172,4 +173,9 @@ git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
 
 echo "[+] Pushing git commit"
 # --set-upstream: sets de branch when pushing to a branch that does not exist
-git push "$GIT_CMD_REPOSITORY" --set-upstream "$TARGET_BRANCH" --force
+if [ "$FORCE_PUSH" = "true" ]
+then
+	git push "$GIT_CMD_REPOSITORY" --set-upstream "$TARGET_BRANCH" --force
+else
+	git push "$GIT_CMD_REPOSITORY" --set-upstream "$TARGET_BRANCH"
+fi
