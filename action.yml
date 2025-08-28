@@ -54,6 +54,12 @@ inputs:
       [Optional] create target branch if not exist. Defaults to `false`
     default: false
     required: false
+  force-push: 
+    type: boolean
+    description: >-
+      [Optional] force push. Defaults to `false`
+    default: false
+    required: false
 
 runs:
   using: docker
