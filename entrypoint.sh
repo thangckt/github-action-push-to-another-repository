@@ -16,7 +16,7 @@ TARGET_BRANCH="${9}"
 COMMIT_MESSAGE="${10}"
 TARGET_DIRECTORY="${11}"
 CREATE_TARGET_BRANCH_IF_NEEDED="${12}"
-CLEAR_REPO_HISTORY="${13}"
+CLEAR_HISTORY_TARGET_BRANCH="${13}"
 FORCE_PUSH="${14}"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
@@ -168,11 +168,7 @@ git add .
 echo "[+] git status:"
 git status
 
-echo "[+] git diff-index:"
-# git diff-index : to avoid doing the git commit failing if there are no changes to be commit
-git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
-
-if [ "$CLEAR_REPO_HISTORY" = "true" ]
+if [ "$CLEAR_HISTORY_TARGET_BRANCH" = "true" ]
 then
 	echo "[+] Clearing git history"
 	# Create an orphan branch (no parent commits)
@@ -185,6 +181,10 @@ then
 	git branch -D "$TARGET_BRANCH" || true
 	# Rename the orphan branch to the target branch
 	git branch -m "temp_orphan_branch" "$TARGET_BRANCH"
+else
+    echo "[+] git diff-index:"
+    # git diff-index : to avoid doing the git commit failing if there are no changes to be commit
+	git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
 fi
 
 echo "[+] Pushing git commit"

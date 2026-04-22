@@ -53,7 +53,7 @@ inputs:
     description: "[Optional] create target branch if not exist. Defaults to `false`"
     default: false
     required: false
-  clear-repo-history:
+  clear-history-target_branch:
     type: boolean
     description: "[Optional] clear history of the target repository. Defaults to `false`"
     default: false
@@ -80,7 +80,7 @@ runs:
     - "${{ inputs.commit-message }}"
     - "${{ inputs.target-directory }}"
     - "${{ inputs.create-target-branch-if-needed }}"
-    - "${{ inputs.clear-repo-history }}"
+    - "${{ inputs.clear-history-target_branch }}"
     - "${{ inputs.force-push }}"
 
 branding:
