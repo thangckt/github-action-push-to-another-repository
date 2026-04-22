@@ -16,7 +16,8 @@ TARGET_BRANCH="${9}"
 COMMIT_MESSAGE="${10}"
 TARGET_DIRECTORY="${11}"
 CREATE_TARGET_BRANCH_IF_NEEDED="${12}"
-FORCE_PUSH="${13}"
+CLEAR_REPO_HISTORY="${13}"
+FORCE_PUSH="${14}"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -170,6 +171,22 @@ git status
 echo "[+] git diff-index:"
 # git diff-index : to avoid doing the git commit failing if there are no changes to be commit
 git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
+
+if [ "$CLEAR_REPO_HISTORY" = "true" ]
+then
+	echo "[+] Clearing git history"
+	# Create an orphan branch (no parent commits)
+	git checkout --orphan "temp_orphan_branch"
+	# Stage all files
+	git add .
+	# Commit with the same message
+	git commit --message "$COMMIT_MESSAGE" || true
+	# Delete the old branch reference
+	git branch -D "$TARGET_BRANCH" || true
+	# Rename the orphan branch to the target branch
+	git branch -m "temp_orphan_branch" "$TARGET_BRANCH"
+	echo "[+] Git history cleared successfully"
+fi
 
 echo "[+] Pushing git commit"
 # --set-upstream: sets de branch when pushing to a branch that does not exist

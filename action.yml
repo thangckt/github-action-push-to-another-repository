@@ -50,14 +50,17 @@ inputs:
     required: false
   create-target-branch-if-needed:
     type: boolean
-    description: >-
-      [Optional] create target branch if not exist. Defaults to `false`
+    description: "[Optional] create target branch if not exist. Defaults to `false`"
     default: false
     required: false
-  force-push: 
+  clear-repo-history:
     type: boolean
-    description: >-
-      [Optional] force push. Defaults to `false`
+    description: "[Optional] clear history of the target repository. Defaults to `false`"
+    default: false
+    required: false
+  force-push:
+    type: boolean
+    description: "[Optional] force push. Defaults to `false`"
     default: false
     required: false
 
@@ -77,7 +80,9 @@ runs:
     - "${{ inputs.commit-message }}"
     - "${{ inputs.target-directory }}"
     - "${{ inputs.create-target-branch-if-needed }}"
+    - "${{ inputs.clear-repo-history }}"
     - "${{ inputs.force-push }}"
+
 branding:
   icon: git-commit
   color: green
