@@ -185,7 +185,6 @@ then
 	git branch -D "$TARGET_BRANCH" || true
 	# Rename the orphan branch to the target branch
 	git branch -m "temp_orphan_branch" "$TARGET_BRANCH"
-	echo "[+] Git history cleared successfully"
 fi
 
 echo "[+] Pushing git commit"
